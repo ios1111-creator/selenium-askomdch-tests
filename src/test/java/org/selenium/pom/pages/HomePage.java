@@ -1,4 +1,4 @@
-package org.selenium.pages;
+package org.selenium.pom.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +11,8 @@ public class HomePage  extends BasePage {
         super(driver);
     }
 
-    public void clickStoreMenuLink (){
+    public StorePage clickStoreMenuLink (){
         driver.findElement(storeMenuLink).click();
+        return new StorePage(driver);
     }
 }
