@@ -11,10 +11,12 @@ public class TestCase extends BaseTest {
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
         driver.get("https://askomdch.com");
+
         HomePage homePage = new HomePage(driver);
         StorePage storePage = homePage.clickStoreMenuLink();
-        storePage.enterTextInSearchFld("Blue");
-        storePage.clickSearchBtn();
+        //mamy dostep do StoryPage na tym obiekcie   storePage.enterTextInSearchFld("Blue").
+//        storePage.enterTextInSearchFld("Blue").clickSearchBtn();
+        storePage.search("Blue");
         Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”");
 
         storePage.clickAddToCardBtn();
