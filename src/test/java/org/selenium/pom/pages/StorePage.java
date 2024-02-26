@@ -15,19 +15,30 @@ public class StorePage extends BasePage {
         super(driver);
     }
 
-    public void enterTextInSearchFld(String txt){
+    //    public void enterTextInSearchFld(String txt){
+//        driver.findElement(searchFld).sendKeys(txt);
+//    }
+    //daje nam dostep do uruchominia innch metod na tym obiekcie np. TestCase
+    public StorePage enterTextInSearchFld(String txt) {
         driver.findElement(searchFld).sendKeys(txt);
+        return this;
     }
 
-    public void clickSearchBtn(){
+    public StorePage search(String txt) {
+        enterTextInSearchFld(txt).clickSearchBtn();
+        return this;
+    }
+
+    public StorePage clickSearchBtn() {
         driver.findElement(searchBtn).click();
+        return this;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return driver.findElement(title).getText();
     }
 
-    public void clickAddToCardBtn(){
+    public void clickAddToCardBtn() {
         driver.findElement(addToCardBtn).click();
     }
 }
