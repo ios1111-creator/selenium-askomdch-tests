@@ -15,37 +15,28 @@ public class TestCase extends BaseTest {
         driver.get("https://askomdch.com");
 
         HomePage homePage = new HomePage(driver);
-        StorePage storePage = homePage.clickStoreMenuLink();
+        StorePage storePage = homePage.navigateToStoreUsingMenu();
         //mamy dostep do StoryPage na tym obiekcie   storePage.enterTextInSearchFld("Blue").
 //        storePage.enterTextInSearchFld("Blue").clickSearchBtn();
         storePage.search("Blue");
         Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”");
         storePage.clickAddToCardBtn("Blue Shoes");
-//        driver.findElement(By.cssSelector("a[aria-label='Add “Blue Shoes” to your cart']")).click();
         Thread.sleep(5000);
-
         CartPage cardPage = storePage.clickViewCart();
-//        driver.findElement(By.cssSelector("a[title='View cart']")).click();
-
         Assert.assertEquals(cardPage.getProductName(), "Blue Shoes");
-//        Assert.assertEquals(driver.findElement(By.cssSelector("td[class='product-name'] a")).getText(), "Blue Shoes");
-        
-        CheckoutPage checkoutPage = cardPage.clickCheckoutPage();
-//        driver.findElement(By.cssSelector(".checkout-button")).click();
-        driver.findElement(By.id("billing_first_name")).sendKeys("user");
-        driver.findElement(By.id("billing_last_name")).sendKeys("user");
-        driver.findElement(By.id("billing_address_1")).sendKeys("San Francisko");
-        driver.findElement(By.id("billing_city")).sendKeys("San Francisko");
 
-        driver.findElement(By.id("billing_postcode")).sendKeys("94188");
-        driver.findElement(By.id("billing_email")).sendKeys("aaaa@gma.com");
+        CheckoutPage checkoutPage = cardPage.clickCheckoutPage();
+        checkoutPage.
+                enterFirstName("user").
+                enterLastName("user").
+                enterAddressLineOne("San Francisko").
+                enterBillingCity("San Francisko").
+                enterBillingPostcode("94188").
+                enterbillingEmail("aaaa@gma.com");
         Thread.sleep(5000);
-        driver.findElement(By.id("place_order")).click();
+        checkoutPage.clickPlaceOrder();
         Thread.sleep(5000);
-        Assert.assertEquals(
-                driver.findElement(
-                        By.cssSelector(".woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-received"))
-                        .getText(), "Thank you. Your order has been received.");
+        Assert.assertEquals(checkoutPage.getSuccessNotice(), "Thank you. Your order has been received.");
         driver.quit();
     }
 
