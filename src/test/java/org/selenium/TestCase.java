@@ -43,28 +43,28 @@ public class TestCase extends BaseTest {
     @Test
     public void loginAndCheckoutUsingDirectBankTransfer() throws InterruptedException {
         driver.get("https://askomdch.com");
-        driver.findElement(By.cssSelector("#menu-item-1227 > a")).click();
-        driver.findElement(By.id("woocommerce-product-search-field-0")).sendKeys("Blue");
-        driver.findElement(By.cssSelector("button[value='Search']")).click();
-        Assert.assertEquals(driver.findElement(By.cssSelector(
-                ".woocommerce-products-header__title.page-title")).getText(), "Search results: “Blue”");
-        driver.findElement(By.cssSelector("a[aria-label='Add “Blue Shoes” to your cart']")).click();
+        HomePage homePage = new HomePage(driver);
+        StorePage storePage = homePage.navigateToStoreUsingMenu();
+        storePage.search("Blue");
+        Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”");
+
+        storePage.clickAddToCardBtn("Blue Shoes");
         Thread.sleep(5000);
-        driver.findElement(By.cssSelector("a[title='View cart']")).click();
-        Assert.assertEquals(driver.findElement(By.cssSelector("td[class='product-name'] a")).getText(), "Blue Shoes");
-        driver.findElement(By.cssSelector(".checkout-button")).click();
-        driver.findElement(By.cssSelector(".showlogin")).click();
+        CartPage cartPage = storePage.clickViewCart();
+        Assert.assertEquals(cartPage.getProductName(), "Blue Shoes");
+
+        CheckoutPage checkoutPage = cartPage.clickCheckoutPage();
+        checkoutPage.clickShowLogin();
         Thread.sleep(3000);
-        driver.findElement(By.id("username")).sendKeys("demouser2");
-        driver.findElement(By.id("password")).sendKeys("demopwd");
-        driver.findElement(By.name("login")).click();
+        checkoutPage.enterUserName("demouser2");
+        checkoutPage.enterPassword("demopwd");
+
+        checkoutPage.clickLogin();
         Thread.sleep(3000);
-        driver.findElement(By.id("place_order")).click();
+
+        checkoutPage.clickPlaceOrder();
         Thread.sleep(5000);
-        Assert.assertEquals(
-                driver.findElement(
-                        By.cssSelector(".woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-received"))
-                        .getText(), "Thank you. Your order has been received.");
+        Assert.assertEquals(checkoutPage.getSuccessNotice(), "Thank you. Your order has been received.");
         driver.quit();
     }
 }

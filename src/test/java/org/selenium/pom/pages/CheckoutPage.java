@@ -14,6 +14,11 @@ public class CheckoutPage extends BasePage {
     private final By placeOrderBtn = By.id("place_order");
     private final By successNotice = By.cssSelector(".woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-received");
 
+    private final By showLogin = By.cssSelector(".showlogin");
+    private final By userNameFld = By.id("username");
+    private final By passwordFld = By.id("password");
+    private final By loginBtn = By.name("login");
+
     public CheckoutPage(WebDriver driver) {
         super(driver);
     }
@@ -55,5 +60,25 @@ public class CheckoutPage extends BasePage {
 
     public String getSuccessNotice() {
         return driver.findElement(successNotice).getText();
+    }
+
+    public CheckoutPage clickShowLogin() {
+        driver.findElement(showLogin).click();
+        return this;
+    }
+
+    public CheckoutPage enterUserName(String userName) {
+        driver.findElement(userNameFld).sendKeys(userName);
+        return this;
+    }
+
+    public CheckoutPage enterPassword(String password) {
+        driver.findElement(passwordFld).sendKeys(password);
+        return this;
+    }
+
+    public CheckoutPage clickLogin() {
+        driver.findElement(loginBtn).click();
+        return this;
     }
 }
