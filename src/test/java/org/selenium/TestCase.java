@@ -1,6 +1,5 @@
 package org.selenium;
 
-import org.openqa.selenium.By;
 import org.selenium.pom.base.BaseTest;
 import org.selenium.pom.pages.CartPage;
 import org.selenium.pom.pages.CheckoutPage;
@@ -32,7 +31,7 @@ public class TestCase extends BaseTest {
                 enterAddressLineOne("San Francisko").
                 enterBillingCity("San Francisko").
                 enterBillingPostcode("94188").
-                enterbillingEmail("aaaa@gma.com");
+                enterBillingEmail("aaaa@gma.com");
         Thread.sleep(5000);
         checkoutPage.clickPlaceOrder();
         Thread.sleep(5000);
@@ -56,12 +55,15 @@ public class TestCase extends BaseTest {
         CheckoutPage checkoutPage = cartPage.clickCheckoutPage();
         checkoutPage.clickShowLogin();
         Thread.sleep(3000);
-        checkoutPage.enterUserName("demouser2");
-        checkoutPage.enterPassword("demopwd");
-
-        checkoutPage.clickLogin();
-        Thread.sleep(3000);
-
+        checkoutPage.
+                login("demouser2", "demopwd").
+                enterFirstName("user").
+                enterLastName("user").
+                enterAddressLineOne("San Francisko").
+                enterBillingCity("San Francisko").
+                enterBillingPostcode("941881").
+                enterBillingEmail("aaaa@gma.com");
+        Thread.sleep(6000);
         checkoutPage.clickPlaceOrder();
         Thread.sleep(5000);
         Assert.assertEquals(checkoutPage.getSuccessNotice(), "Thank you. Your order has been received.");
