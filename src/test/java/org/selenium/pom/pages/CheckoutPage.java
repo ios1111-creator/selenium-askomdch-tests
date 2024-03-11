@@ -24,31 +24,37 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage enterFirstName(String firstName) {
+        driver.findElement(firstNameFld).clear();
         driver.findElement(firstNameFld).sendKeys(firstName);
         return this;
     }
 
     public CheckoutPage enterLastName(String lastName) {
+        driver.findElement(lastNameFld).clear();
         driver.findElement(lastNameFld).sendKeys(lastName);
         return this;
     }
 
     public CheckoutPage enterAddressLineOne(String addressLineOne) {
+        driver.findElement(addressLineOneFld).clear();
         driver.findElement(addressLineOneFld).sendKeys(addressLineOne);
         return this;
     }
 
     public CheckoutPage enterBillingCity(String billingCity) {
+        driver.findElement(billingCityFld).clear();
         driver.findElement(billingCityFld).sendKeys(billingCity);
         return this;
     }
 
     public CheckoutPage enterBillingPostcode(String billingPostcode) {
+        driver.findElement(billingPostcodeFld).clear();
         driver.findElement(billingPostcodeFld).sendKeys(billingPostcode);
         return this;
     }
 
-    public CheckoutPage enterbillingEmail(String billingEmail) {
+    public CheckoutPage enterBillingEmail(String billingEmail) {
+        driver.findElement(billingEmailFld).clear();
         driver.findElement(billingEmailFld).sendKeys(billingEmail);
         return this;
     }
@@ -80,5 +86,12 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage clickLogin() {
         driver.findElement(loginBtn).click();
         return this;
+    }
+
+    public CheckoutPage login(String userName,String password){
+        return enterUserName(userName).
+        enterPassword(password).
+        clickLogin();
+
     }
 }
