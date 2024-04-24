@@ -69,7 +69,6 @@ public class TestCase3 {
         act.dragAndDrop(SourceElement, TargetElement).build().perform();
 //        act.clickAndHold(SourceElement).moveToElement(TargetElement).release().build().perform();
         Thread.sleep(3000);
-
         driver.quit();
     }
 

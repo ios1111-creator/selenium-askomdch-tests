@@ -42,7 +42,6 @@ public class TestCase2 {
         Thread.sleep(5000);
         Assert.assertEquals(driver.findElement(By.cssSelector(".woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-received"))
                 .getText(), "Thank you. Your order has been received.");
-
         driver.close();
     }
 
